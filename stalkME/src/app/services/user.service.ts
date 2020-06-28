@@ -12,6 +12,7 @@ export class UserService {
   public url: string;
   public identity;
   public token: string
+  stats: any;
 
   constructor(public http: HttpClient) {
     this.url = global.url;
@@ -51,6 +52,27 @@ export class UserService {
       this.token = null;
     }
     return this.token;
+  }
+
+  getStats(){
+    let stats = JSON.parse(localStorage.getItem('stats'));
+
+    if (stats != undefined) {
+      this.stats = stats;
+    } else {
+      this.stats = null;
+    }
+    return this.stats;
+  }
+
+  getMetrics(userId = null):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', this.getToken());
+    if(userId!= null) {
+      return this.http.get(`${this.url}metrics/${userId}`, {headers: headers});
+    } else {
+      return this.http.get(`${this.url}metrics`, {headers: headers});
+    }
   }
 
 

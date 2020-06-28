@@ -17,7 +17,7 @@ export class SignInComponent implements OnInit {
   public identity;
   public token;
 
-  constructor(private route: ActivatedRoute, router:Router, private _userServie:UserService ) {
+  constructor(private route: ActivatedRoute, private router:Router, private _userServie:UserService ) {
     this.title = 'Bienvenido';
     this.user = new User('', '', '', '', '', '', 'ROLE_USER', '');
    }
@@ -31,17 +31,12 @@ export class SignInComponent implements OnInit {
         this.identity = Response.user;
         if(!this.identity && !this.identity._id) {
           this.status = 'error';
-        } else {
-          this.status = 'success';
-          
+        } else {          
           localStorage.setItem('identity', JSON.stringify(this.identity));
           
           this.getToken();
-
-          
+ 
         }
-        console.log(Response.user);
-        this.status = 'success';
       },
       error => {
         let message = <any>error;
@@ -61,13 +56,11 @@ export class SignInComponent implements OnInit {
         if(this.token.length <= 0) {
           this.status = 'error';
         } else {
-          this.status = 'success';
           
           localStorage.setItem('token', this.token);
           
+          this.getMetrics();
         }
-        console.log(Response.user);
-        this.status = 'success';
       },
       error => {
         let message = <any>error;
@@ -76,6 +69,20 @@ export class SignInComponent implements OnInit {
         if (message != null) {
           this.status = 'error';
         }
+      }
+    )
+  }
+
+  getMetrics(){
+    this._userServie.getMetrics().subscribe(
+      Response => {
+        localStorage.setItem('stats', JSON.stringify(Response));
+        this.status = 'success';
+        this.router.navigate(['/']);
+      },
+      error => {
+        console.log(error);
+        
       }
     )
   }

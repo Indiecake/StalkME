@@ -1,14 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">{{ title }}</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    
+
     <ul class="navbar-nav mr-auto" *ngIf="identity">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/']" [routerLinkActive]="['active']"> <i class="fa fa-home"></i> Inicio</a>
+        <a class="nav-link" [routerLink]="['/home']" [routerLinkActive]="['active']"> <i class="fa fa-home"></i>
+          Inicio</a>
       </li>
 
       <li class="nav-item">
@@ -21,19 +23,37 @@
 
     </ul>
 
-    <ul class="navbar-nav mr-auto" *ngIf="!identity">
-      
+    <ul class="navbar-nav mr-auto" *ngIf="!identity"></ul>
+
+    <ul class="navbar-nav navbar-right mr-3" *ngIf="!identity">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/signIn']" [routerLinkActive]="['active']"> <i class="fa fa-sign-in"></i> Identificarse </a>
+        <a class="nav-link" [routerLink]="['/signIn']" [routerLinkActive]="['active']"> <i class="fa fa-sign-in"></i>
+          Identificarse </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/signUp']" [routerLinkActive]="['active']"> <i class="fa fa-user-plus"></i> Registrarse </a>
+        <a class="nav-link" [routerLink]="['/signUp']" [routerLinkActive]="['active']"> <i class="fa fa-user-plus"></i>
+          Registrarse </a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav navbar-right mr-3" *ngIf="identity">
+      <li class="avatar"></li>
+      <li class="dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ identity.name }}</a>
+
+        <div class="dropdown-menu">
+
+          <a href="#" class="dropdown-item"> <i class="fa fa-user" aria-hidden="true"></i> Mi perfil</a>
+          <a href="#" class="dropdown-item"> <i class="fa fa-cog" aria-hidden="true"></i> Mis datos</a>
+          <a href="#" (click)="logout()" class="dropdown-item"> <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesion</a>
+        </div>
       </li>
     </ul>
 
   </div>
 </nav>
 
-
-<router-outlet></router-outlet>
+<div class="container-fluid mt-4">
+  <router-outlet></router-outlet>
+</div>
