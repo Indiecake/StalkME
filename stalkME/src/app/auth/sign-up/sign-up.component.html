@@ -1,0 +1,58 @@
+<div class="col-lg-6">
+    <h1 class="my-2">{{ title }}</h1>
+
+    <div class="alert alert-success" *ngIf="status == 'success'">
+        Registro exitoso!, <a [routerLink]="['/signIn']" > Identificate aqui</a>
+    </div>
+ 
+    <div class="alert alert-danger" *ngIf="status == 'error'">
+        El registro ha fallado !
+    </div>
+
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="col-lg-10">
+
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" required>
+            <div class="text-danger" *ngIf="!name.valid && name.touched" role="alert">
+                El nombre es requerido
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="surname">Apellido</label>
+            <input type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" class="form-control"
+                required>
+                <div class="text-danger" *ngIf="!surname.valid && surname.touched">
+                    El Apellido es requerido
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="nick">Nombre de usuario</label>
+            <input type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" class="form-control" required>
+            <div class="text-danger" *ngIf="!nick.valid && nick.touched">
+                El nombre de usuario es requerido
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Correo</label>
+            <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" required>
+            <div class="text-danger" *ngIf="!email.valid && email.touched">
+                El correo es requerido
+            </div>        
+        </div>
+
+        <div class="form-group">
+            <label for="password">Contasenia</label>
+            <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control"
+                required>
+                <div class="text-danger" *ngIf="!password.valid && password.touched">
+                    La contrasenia es requerida
+                </div>
+        </div>
+
+        <input type="submit" class="btn btn-success mt-2" [disabled]="!registerForm.form.valid" value="Registrate">
+    </form>
+</div>
