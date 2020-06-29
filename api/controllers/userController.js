@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const Follow = require('../models/follower');
-const Post  = require('../models/post');
+const Post = require('../models/post');
 
 const mongoosePaginate = require('mongoose-pagination');
 const bcrypt = require('bcrypt-nodejs');
@@ -198,13 +198,28 @@ function editUser(req, res) {
         return res.status(500).send({ message: 'No tienes permiso para editar usuario' });
     }
 
-    User.findOneAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
-        if (err) return res.status(500).send({ message: 'Error en la peticion' });
+    User.find({
+        $or: [
+            { email: update.email.toLowerCase() },
+            { nick: update.nick.toLowerCase() }
+        ]
+    }).exec((err, users) => {
+        let userIsset = false;
+        for (const user of users) {
+            if (user && user._id != userId) userIsset = true;
+        }
+        
+        if (userIsset) return res.status(404).send({ message: 'Los datos ya estan en uso' });
 
-        if (!userUpdated) return res.status(404).send({ message: 'No se ha podido actualizar el usuario' });
+        User.findOneAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
+            if (err) return res.status(500).send({ message: 'Error en la peticion' });
 
-        return res.status(200).send({ user: userUpdated });
+            if (!userUpdated) return res.status(404).send({ message: 'No se ha podido actualizar el usuario' });
+
+            return res.status(200).send({ user: userUpdated });
+        });
     });
+
 }
 
 
