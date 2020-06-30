@@ -148,6 +148,9 @@ function getUsers(req, res) {
         if (err) return res.status(500).send({ message: 'Error en la peticion' });
 
         if (!users) return res.status(404).send({ message: 'No existen registros de usuarios' });
+        for (const user of users) {
+            user.password = undefined;
+        }
         followsUsersId(loggedUserId).then((value) => {
 
             return res.status(200).send({
