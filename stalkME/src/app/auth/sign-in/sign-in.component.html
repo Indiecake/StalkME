@@ -13,14 +13,14 @@
 
         <div class="form-group">
             <label for="email">Correo electronico</label>
-            <input type="text" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" required>
+            <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" required>
             <div class="text-danger" *ngIf="!email.valid && email.touched" role="alert">
                 El correo electronico es obligatorio
             </div>
         </div>
 
         <div class="form-group">
-            <label for="password">Apellido</label>
+            <label for="password">Contrasena</label>
             <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control"
                 required>
                 <div class="text-danger" *ngIf="!password.valid && password.touched">

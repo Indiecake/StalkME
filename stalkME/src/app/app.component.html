@@ -18,7 +18,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-user"></i> Conectar</a>
+        <a class="nav-link" [routerLink]="['/users']" [routerLinkActive]="['active']"><i class="fa fa-user"></i> Conectar</a>
       </li>
 
     </ul>
@@ -38,14 +38,14 @@
     </ul>
 
     <ul class="navbar-nav navbar-right mr-3" *ngIf="identity">
-      <li class="avatar"></li>
-      <li class="dropdown">
+      <li class="mr-2"> <img class="avatar" src="{{ url + 'getImageUser/' + identity.image }}" *ngIf="identity.image" alt=""></li>
+      <li class="dropdown mt-2">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ identity.name }}</a>
 
         <div class="dropdown-menu">
 
           <a href="#" class="dropdown-item"> <i class="fa fa-user" aria-hidden="true"></i> Mi perfil</a>
-          <a href="#" class="dropdown-item"> <i class="fa fa-cog" aria-hidden="true"></i> Mis datos</a>
+          <a [routerLink]="['/user/edit']" class="dropdown-item"> <i class="fa fa-cog" aria-hidden="true"></i> Mis datos</a>
           <a href="#" (click)="logout()" class="dropdown-item"> <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesion</a>
         </div>
       </li>

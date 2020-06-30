@@ -1,0 +1,59 @@
+<div class="col-lg-8">
+    <h1>{{ title }}</h1>
+
+    <div class="people">
+        <div *ngFor="let user of users" class="itemUser">
+
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <a href="#">
+                            <img src="{{ url + 'getImageUser/' + user.image }}" class="card-img" *ngIf="user.image">
+                            <img src="assets/img/userPlaceHolder.jpeg" class="card-img" *ngIf="!user.image">
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <a href="#" class="card-title font-weight-bold">
+                                {{ user.name + ' ' + user.surname }}
+                            </a>
+                            <div class="card-title pull-right" *ngIf="user._id != identity._id">
+                                <button class="btn btn-primary btn-sm" (click)="followUser(user._id)" *ngIf="follows.indexOf(user._id) < 0"> <i class="fa fa-plus" aria-hidden="true"></i> Seguir</button>
+                                <button class="btn btn-secondary btn-sm" [class.btn-danger]="user._id == followingUserOver" *ngIf="follows.indexOf(user._id) >= 0"
+                                    (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave()" (click)="unFollowUser(user._id)"> 
+                                    <span *ngIf="user._id == followingUserOver; else following">
+                                        <i class="fa fa-ban" aria-hidden="true"></i>
+                                        Dejar de seguir
+                                    </span>
+                                    <ng-template #following>
+                                        <i class="fa fa-check-circle-o" aria-hidden="true"></i> Siguiendo
+                                    </ng-template>
+                                    
+                                </button>
+                            </div>
+                            <p class="card-text text-muted">
+                                {{ user.nick }}
+                            </p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" *ngIf="page > 1">
+                <a class="page-link" [routerLink]="['/users', prevPage]">Anterior</a>
+            </li>
+    
+            <li class="page-item" *ngIf="pages != page">
+                <a class="page-link" [routerLink]="['/users', nextPage]">Siguiente.</a>
+            </li>
+        </ul>
+    </nav>
+
+
+</div>

@@ -1,0 +1,57 @@
+<div class="col-lg-5">
+    <h1>{{ title }}</h1>
+
+    <div *ngIf="status == 'success'" class="alert alert-success"> Se han modificado los datos del usuario.</div>
+    <div *ngIf="status == 'error'" class="alert alert-danger"> NO se han modificado los datos del usuario.</div>
+
+    <form #userEditForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+
+        <div class="form-group">
+            <label for="name">nombre</label>
+            <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" required>
+            <div class="text-danger" *ngIf="!name.valid && name.touched" role="alert">
+                El nombre es obligatorio.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="surname">Apellidos</label>
+            <input type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" class="form-control"
+                required>
+                <div class="text-danger" *ngIf="!surname.valid && surname.touched">
+                    Los apellidos son obligatorios.
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="nick">Nombre de usuario</label>
+            <input type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" class="form-control"
+                required>
+                <div class="text-danger" *ngIf="!nick.valid && nick.touched">
+                    El nombre de usuario es obligatorio.
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Correo electronico</label>
+            <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control"
+                required>
+                <div class="text-danger" *ngIf="!email.valid && email.touched">
+                    El email es obligatorio.
+                </div>
+        </div>
+
+        <div *ngIf="user.image">
+            <img class="img-fluid rounded-circle" src="{{ url + 'getImageUser/' + user.image }}" alt="User avatar">
+        </div>
+
+        <label for="image">Sube tu avatar</label>
+        <div class="form-group">
+            <input type="file" name="image" placeholder="Subir imagen" (change)="fileChangeEvent($event)"
+                required>
+
+        </div>
+
+        <input type="submit" class="btn btn-warning mt-2" [disabled]="!userEditForm.form.valid" value="{{ title }}">
+    </form>
+</div>
