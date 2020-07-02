@@ -1,0 +1,15 @@
+.following-data{
+    float: left;
+    padding-left: 4px;
+    border-left: 2px solid #ccc;
+    border-top: 2px solid #ccc;
+};
+
+.following-data:first-child{
+    border-left: none;
+}
+
+.label-stats, .number-stats{
+ display: block;
+ text-align: center;
+};

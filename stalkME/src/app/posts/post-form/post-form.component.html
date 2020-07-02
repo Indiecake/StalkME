@@ -1,0 +1,35 @@
+<div class="card mt-3">
+    <div class="card-body">
+        <h3 class="card-title"> Crear nueva publicacion. </h3>
+
+        <div class="alert alert-success" *ngIf="status == 'success'">
+            Idea publicada!
+        </div>
+
+        <div class="alert alert-danger" *ngIf="status == 'error'">
+            La publicacion ha fallado! :'c 
+        </div>
+        <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm); sendPost($event)" class="col-lg-12">
+
+            <div class="form-group">
+                <label for="post">Que estas pensando?</label>
+                <textarea name="text" #text="ngModel" [(ngModel)]="post.text" class="form-control" required>
+
+                </textarea>
+                <span class="text-info" *ngIf="!text.valid && text.touched" role="alert">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    No puedes enviar una publicacion sin texto.
+                </span>
+            </div>
+
+            <label for="image">Agregar archivo ?</label>
+            <div class="form-group">
+                <input type="file" name="image" placeholder="Subir imagen" (change)="fileChangeEvent($event)">
+
+            </div>
+
+            <input type="submit" class="btn btn-success mt-2" [disabled]="!postForm.form.valid" value="Publicar">
+        </form>
+
+    </div>
+</div>

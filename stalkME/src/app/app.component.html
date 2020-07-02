@@ -14,7 +14,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-list"></i> Timeline</a>
+        <a class="nav-link" [routerLink]="['/timeline']" [routerLinkActive]="['active']"><i class="fa fa-list"></i> Timeline</a>
       </li>
 
       <li class="nav-item">
@@ -38,7 +38,10 @@
     </ul>
 
     <ul class="navbar-nav navbar-right mr-3" *ngIf="identity">
-      <li class="mr-2"> <img class="avatar" src="{{ url + 'getImageUser/' + identity.image }}" *ngIf="identity.image" alt=""></li>
+      <li class="mr-2"> 
+        <img class="avatar" src="{{ url + 'getImageUser/' + identity.image }}" *ngIf="identity.image" alt="">
+        <img class="avatar" src="assets/img/userPlaceHolder.jpeg" *ngIf="!identity.image" alt="">
+      </li>
       <li class="dropdown mt-2">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ identity.name }}</a>
 

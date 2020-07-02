@@ -12,6 +12,10 @@ import { HomeComponent } from './home/home.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { UserComponent } from './user/user.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { PostsComponent } from './posts/posts.component';
+import { PostFormComponent } from './posts/post-form/post-form.component';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { TimelineComponent } from './timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HomeComponent,
     EditUserComponent,
     UserComponent,
-    SidebarComponent
+    SidebarComponent,
+    PostsComponent,
+    PostFormComponent,
+    DateAgoPipe,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,

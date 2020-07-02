@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-lg-8">
+        <h1> {{ title }}</h1>
+    <div class="row col-lg-1 offset-11">
+        <button class="btn btn-primary pull-right btn-sm mb-3" (click)="getPosts(1)">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+    </div>
+        <div class="posts">
+            <div *ngFor="let post of posts" class="card mb-2">
+                <div class="card-body">
+                    <div class="d-inline">
+                        <img class="avatar mb-1" src="{{ url + 'getImageUser/' + post.user.image }}"
+                            *ngIf="post.user.image">
+                        <img class="avatar mb-1" src="assets/img/userPlaceHolder.jpeg" *ngIf="!post.user.image">
+                        <a href="#" class="font-weight-bold text-dark text-decoration-none"> {{ post.user.name + ' ' + post.user.surname}}</a>
+
+                    </div>
+                    <h4 class="card-text mt-2">
+                        {{ post.text }}
+                    </h4>
+                    <footer class="blockquote-footer">{{ post.createdAt | dateAgo }}</footer>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" *ngIf="page != pages && page < pages">
+            <button class="btn btn-success" (click)="viewMorePosts()">
+                Ver mas publicaciones.  
+            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <app-sidebar></app-sidebar>
+        <app-post-form (sended)="refresh($event)"></app-post-form>
+    </div>
+</div>

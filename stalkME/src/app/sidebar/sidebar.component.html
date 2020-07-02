@@ -1,1 +1,40 @@
-<p>sidebar works!</p>
+<div class="mt-5 ">
+    <div class="card text-center">
+        <div class="card-header">
+            Mi tarjeta de usuario.
+            Bienvenido {{ identity.name}}
+        </div>
+        <div class="card-body">
+            <img class="avatar mb-1" src="{{ url + 'getImageUser/' + identity.image }}" *ngIf="identity.image">
+            <img class="avatar mb-1" src="assets/img/userPlaceHolder.jpeg" *ngIf="!identity.image">
+            <h6 class="card-title"><a href="#"
+                    class="font-weight-bold text-dark text-decoration-none">{{ identity.name + ' ' + identity.surname}}</a>
+            </h6>
+            <p class="card-text" class="text-mutted">{{ identity.nick }}</p>
+            <div class="stats" *ngIf="stats">
+                <div class="following-data">
+                    <a class="font-weight-bold text-dark text-decoration-none" href="#">
+                        <span class="label-stats"> Siguiendo</span>
+                        <span class="number-stats"> {{ stats.following }}</span>
+                    </a>
+                </div>
+                <div class="following-data mx-4">
+                    <a class="font-weight-bold text-dark text-decoration-none" href="#">
+                        <span class="label-stats"> Seguidores</span>
+                        <span class="number-stats"> {{ stats.followers }}</span>
+                    </a>
+                </div>
+                <div class="following-data">
+                    <a class="font-weight-bold text-dark text-decoration-none" href="#">
+                        <span class="label-stats"> Publicaciones</span>
+                        <span class="number-stats"> {{ stats.posts }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            2 days ago
+        </div>
+    </div>
+
+</div>

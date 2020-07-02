@@ -18,6 +18,7 @@ export class EditUserComponent implements OnInit {
   public identity;
   public token;
   public url: string;
+  public filesToUpload: Array<File>;
 
   constructor(private route: ActivatedRoute, 
               private router: Router, 
@@ -61,7 +62,7 @@ export class EditUserComponent implements OnInit {
       }
     );
   }
-  filesToUpload: Array<File>;
+  
   fileChangeEvent(fileInput:any){
     this.filesToUpload = <Array<File>>fileInput.target.files;
   }
