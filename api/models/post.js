@@ -4,7 +4,7 @@ const schema = mongoose.Schema;
 const postSchema = schema({
     text: String,
     file: String,
-    CreateAt: String,
+    createdAt: String,
     user: { type: schema.Types.ObjectId, ref: 'User'}
 });
 

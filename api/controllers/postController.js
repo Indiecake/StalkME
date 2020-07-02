@@ -20,7 +20,7 @@ function savePost(req, res) {
     post.text = params.text;
     post.file = null;
     post.user = req.user.sub;
-    post.createAt = moment().unix();
+    post.createdAt = moment().unix();
 
     post.save((err, postStored) => {
         if (err) return res.status(500).send({ message: 'Error al guardar la publicacion' });
@@ -47,6 +47,7 @@ function getPosts(req, res) {
         for (const follower of follows) {
             followsArray.push(follower.followed);
         }
+        followsArray.push(loggedUser);
 
         Publication.find({ "user": { "$in": followsArray } }).sort('-createdAt').populate('user')
             .paginate(page, itemsPerPage, (err, posts, total) => {
@@ -59,7 +60,8 @@ function getPosts(req, res) {
                     totalItems: total,
                     posts,
                     page: page,
-                    pages: Math.ceil(total / itemsPerPage)
+                    pages: Math.ceil(total / itemsPerPage),
+                    itemsPerPage
                 });
 
             });
