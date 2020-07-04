@@ -47,7 +47,7 @@
 
         <div class="dropdown-menu">
 
-          <a href="#" class="dropdown-item"> <i class="fa fa-user" aria-hidden="true"></i> Mi perfil</a>
+          <a [routerLink]="['/profile/', identity._id]" class="dropdown-item"> <i class="fa fa-user" aria-hidden="true"></i> Mi perfil</a>
           <a [routerLink]="['/user/edit']" class="dropdown-item"> <i class="fa fa-cog" aria-hidden="true"></i> Mis datos</a>
           <a href="#" (click)="logout()" class="dropdown-item"> <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesion</a>
         </div>

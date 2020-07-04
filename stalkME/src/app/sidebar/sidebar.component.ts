@@ -26,4 +26,9 @@ export class SidebarComponent implements OnInit {
     
   }
 
+  updateStats(event){
+    console.log(event);
+    
+  }
+
 }

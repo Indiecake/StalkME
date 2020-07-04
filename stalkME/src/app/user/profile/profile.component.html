@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-lg-8">
+        <h1>{{ title}} </h1>
+
+        <div class="profileData" *ngIf="user">
+            <div class="card mb-2">
+                <div class="card-body">
+                    
+                    <div class="follow">
+                        <button (click)="followUser(user?._id)" 
+                                class="btn btn-success pull-right" *ngIf="!following">
+                            Seguir
+                        </button>
+
+                        <button (click)="unFollowUser(user?._id)" 
+                                (mouseenter)="mouseEnter(user._id)"
+                                (mouseleave)="mouseLeave()"
+                                class="btn btn-primary pull-right" 
+                                *ngIf="following"
+                                [class.btn-danger]="user._id == followUserOver">
+                                <span *ngIf="user._id == followUserOver; else following">
+                                    Dejar de seguir
+                                </span>
+                                <ng-template #following>
+                                    <span>
+                                        Siguiendo
+                                    </span>
+                                </ng-template>
+                                
+                            
+                        </button>
+                    </div>
+
+                    <img class="rounded mx-auto d-block mb-1" src="{{ url + 'getImageUser/' + user?.image }}"
+                        *ngIf="user && user.image">
+                    <img class="rounded mx-auto d-block mb-1" src="assets/img/userPlaceHolder.jpeg"
+                        *ngIf="!user?.image">
+
+                    <div class="text-center">
+                        
+                        <p class="font-weight-bold text-dark text-decoration-none">{{ user?.name + ' ' + user?.surname}}</p>
+                        
+                        <div class="badge badge-secondary mb-2" *ngIf="followed">
+                            Te sigue.
+                        </div>
+
+                        <h4 class="card-text text-muted">
+                            {{ user.nick }} | {{ user.email }}
+                        </h4>
+
+                        <div class="following-data">
+                            <a class="font-weight-bold text-dark text-decoration-none" href="#">
+                                <span class="label-stats"> Siguiendo</span>
+                                <span class="number-stats"> {{ stats?.following }}</span>
+                            </a>
+                        </div>
+                        <div class="following-data mx-4">
+                            <a class="font-weight-bold text-dark text-decoration-none" href="#">
+                                <span class="label-stats"> Seguidores</span>
+                                <span class="number-stats"> {{ stats?.followers }}</span>
+                            </a>
+                        </div>
+                        <div class="following-data">
+                            <a class="font-weight-bold text-dark text-decoration-none" href="#">
+                                <span class="label-stats"> Publicaciones</span>
+                                <span class="number-stats"> {{ stats?.posts }}</span>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="userPosts" *ngIf="user">
+            <app-personal-post [userId]="user._id"></app-personal-post>
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-4">
+        <app-sidebar></app-sidebar>
+        <app-post-form></app-post-form>
+    </div>
+</div>

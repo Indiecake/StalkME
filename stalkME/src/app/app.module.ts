@@ -15,7 +15,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostFormComponent } from './posts/post-form/post-form.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
-import { TimelineComponent } from './timeline/timeline.component';
+
+import { ProfileComponent } from './user/profile/profile.component';
+import { PersonalPostComponent } from './user/personal-post/personal-post.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { TimelineComponent } from './timeline/timeline.component';
     PostsComponent,
     PostFormComponent,
     DateAgoPipe,
-    TimelineComponent
+    ProfileComponent,
+    PersonalPostComponent
   ],
   imports: [
     BrowserModule,

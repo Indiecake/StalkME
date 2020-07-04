@@ -33,4 +33,10 @@ export class PostService {
 
     return this.http.delete(`${this.url}deletePost/${id}`, {headers: headers})
   }
+
+  getPostPerUser(token, userId, page = 1): Observable<any> {
+    let headers = global.headers.set('Authorization', token);
+
+    return this.http.get(`${this.url}posts/user/${userId}/${page}`, {headers: headers});
+  }
 }

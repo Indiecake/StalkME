@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Post } from "../models/post";
 import { UserService } from "../services/user.service";
 import { global } from "../services/global";
 import { ActivatedRoute, Router, Params } from "@angular/router";
 import { PostService } from "../services/post.service";
+import { AlertService } from "../services/alert.service";
 import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-posts',
@@ -24,6 +26,7 @@ export class PostsComponent implements OnInit {
   total: number;
   noPagesLeft: boolean;
   itemsPerPage: number;
+  showImage;
 
   constructor(private _userService: UserService,
     private route: ActivatedRoute,
@@ -56,7 +59,7 @@ export class PostsComponent implements OnInit {
             let nextPage = Response.posts;
             this.posts = loadedRecords.concat(nextPage);
 
-            $("html, body").animate({scrollTop: $("body").prop("scrollHeight")}, 500);
+            $("html, body").animate({ scrollTop: $("body").prop("scrollHeight") }, 500);
           }
 
 
@@ -80,7 +83,7 @@ export class PostsComponent implements OnInit {
   }
 
   viewMorePosts() {
-    if ( this.page == this.pages ) {
+    if (this.page == this.pages) {
       this.noPagesLeft = true;
       //alertSevice
     } else {
@@ -90,12 +93,49 @@ export class PostsComponent implements OnInit {
 
   }
 
-  refresh(event){    
+  refresh(event) {
     if (event.send) {
       this.getPosts(1);
-      //this.posts.unshift(event.post);
     }
-    
+
+  }
+
+  showPostImage(postId) {
+    if (this.showImage == postId) {
+      this.showImage = 0;
+    } else {
+      this.showImage = postId;
+    }
+  }
+
+  async deletePost(id) {
+    if (await AlertService.confirm('Eliminar', 'Estas seguro de que quieres eliminar esta publicacion')) {
+      this._postService.deletePost(this.token, id).subscribe(
+        Response => {
+          this.status = 'success';
+          this.updateMetrics();
+          this.getPosts(1);
+          AlertService.toastSuccess('Se eliminó correctamente', '');
+        },
+        error => {
+          let message = <any>error;
+          AlertService.toastError('No se pudo eliminar', '');
+          if (message != null) {
+            this.status = 'error';
+          }
+        }
+      );
+    }
+
+  }
+
+  updateMetrics(){
+    this._userService.getMetrics(this.identity._id).toPromise().then(response => {
+      localStorage.setItem('stats', JSON.stringify(response));
+    }).catch(err => {
+      console.log(err);
+    });
+
   }
 
 }

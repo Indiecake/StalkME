@@ -5,8 +5,9 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { UserComponent } from './user/user.component';
-import { TimelineComponent } from "./timeline/timeline.component";
+//import { TimelineComponent } from "./timeline/timeline.component";
 import { PostsComponent } from "./posts/posts.component";
+import { ProfileComponent } from './user/profile/profile.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'users', component: UserComponent },
   { path: 'users/:page', component: UserComponent },
   { path: 'timeline', component: PostsComponent},
+  { path: 'profile/:id', component: ProfileComponent},
   { path: '**', component: HomeComponent }
 ];
 

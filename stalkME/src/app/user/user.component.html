@@ -8,14 +8,14 @@
                 <div class="card mb-3" style="max-width: 740px;">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <a href="#">
+                            <a [routerLink]="['/profile/', user._id]" >
                                 <img src="{{ url + 'getImageUser/' + user.image }}" class="card-img" *ngIf="user.image">
                                 <img src="assets/img/userPlaceHolder.jpeg" class="card-img" *ngIf="!user.image">
                             </a>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <a href="#" class="card-title font-weight-bold">
+                                <a [routerLink]="['/profile/', user._id]" class="card-title font-weight-bold">
                                     {{ user.name + ' ' + user.surname }}
                                 </a>
                                 <div class="card-title pull-right" *ngIf="user._id != identity._id">

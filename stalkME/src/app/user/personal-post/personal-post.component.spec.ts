@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimelineComponent } from './timeline.component';
+import { PersonalPostComponent } from './personal-post.component';
 
-describe('TimelineComponent', () => {
-  let component: TimelineComponent;
-  let fixture: ComponentFixture<TimelineComponent>;
+describe('PersonalPostComponent', () => {
+  let component: PersonalPostComponent;
+  let fixture: ComponentFixture<PersonalPostComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimelineComponent ]
+      declarations: [ PersonalPostComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TimelineComponent);
+    fixture = TestBed.createComponent(PersonalPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

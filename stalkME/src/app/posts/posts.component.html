@@ -1,24 +1,54 @@
 <div class="row">
     <div class="col-lg-8">
         <h1> {{ title }}</h1>
-    <div class="row col-lg-1 offset-11">
-        <button class="btn btn-primary pull-right btn-sm mb-3" (click)="getPosts(1)">
-            <i class="fa fa-refresh" aria-hidden="true"></i>
-        </button>
-    </div>
+        <div class="row col-lg-1 offset-11">
+            <button class="btn btn-primary pull-right btn-sm mb-3" (click)="getPosts(1)">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </div>
         <div class="posts">
             <div *ngFor="let post of posts" class="card mb-2">
+               
                 <div class="card-body">
                     <div class="d-inline">
+                        
                         <img class="avatar mb-1" src="{{ url + 'getImageUser/' + post.user.image }}"
                             *ngIf="post.user.image">
                         <img class="avatar mb-1" src="assets/img/userPlaceHolder.jpeg" *ngIf="!post.user.image">
-                        <a href="#" class="font-weight-bold text-dark text-decoration-none"> {{ post.user.name + ' ' + post.user.surname}}</a>
+                        <a [routerLink]="['/profile/', post.user._id]"
+                            class="font-weight-bold text-dark text-decoration-none">
+                            {{ post.user.name + ' ' + post.user.surname}}</a>
 
                     </div>
+
+                    <div class="col-lg-1 pull-right">
+                        <button class="btn btn-danger btn-sm mb-3" 
+                                *ngIf="post.user._id == identity._id" 
+                                (click)="deletePost(post?._id)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
                     <h4 class="card-text mt-2">
                         {{ post.text }}
                     </h4>
+
+                    <div class="col-lg-1 pull-right">
+                        <button class="btn btn-info btn-sm mb-3" 
+                                *ngIf="post.file" 
+                                (click)="showPostImage(post?._id)"
+                                [class.btn-danger]="showImage == post._id">
+                            <i class="fa fa-picture-o" aria-hidden="true" *ngIf="showImage != post._id"></i>
+                            <i class="fa fa-minus-square" aria-hidden="true" *ngIf="showImage == post._id"></i>
+
+                        </button>
+                    </div>
+                    
+
+                    <div class="col-lg-11 mb-3" *ngIf="post.file && showImage == post._id">
+                        <img class="img-thumbnail" src="{{ url +'getPostImage/'+ post.file }}" alt="">
+                    </div>
+
                     <footer class="blockquote-footer">{{ post.createdAt | dateAgo }}</footer>
                 </div>
             </div>
@@ -26,7 +56,7 @@
 
         <div class="text-center" *ngIf="page != pages && page < pages">
             <button class="btn btn-success" (click)="viewMorePosts()">
-                Ver mas publicaciones.  
+                Ver mas publicaciones.
             </button>
         </div>
     </div>

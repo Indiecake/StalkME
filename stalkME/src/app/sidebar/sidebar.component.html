@@ -7,7 +7,7 @@
         <div class="card-body">
             <img class="avatar mb-1" src="{{ url + 'getImageUser/' + identity.image }}" *ngIf="identity.image">
             <img class="avatar mb-1" src="assets/img/userPlaceHolder.jpeg" *ngIf="!identity.image">
-            <h6 class="card-title"><a href="#"
+            <h6 class="card-title"><a [routerLink]="['/profile/', identity._id]"
                     class="font-weight-bold text-dark text-decoration-none">{{ identity.name + ' ' + identity.surname}}</a>
             </h6>
             <p class="card-text" class="text-mutted">{{ identity.nick }}</p>
