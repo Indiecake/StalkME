@@ -1,7 +1,7 @@
 const express = require('express');
 const api = express.Router();
 const multipart = require('connect-multiparty');
-const mdUpload = multipart({uploadDir: './uploads/publications'});
+const mdUpload = multipart({ uploadDir: './uploads/publications' });
 
 const mdAuth = require('../middlewares/auth');
 
@@ -11,6 +11,7 @@ const post = require('../models/post');
 api.get('/testPost', mdAuth.ensureAuth, postController.test);
 api.post('/savePost', mdAuth.ensureAuth, postController.savePost);
 api.get('/posts/:page?', mdAuth.ensureAuth, postController.getPosts);
+api.get('/posts/user/:user/:page?', mdAuth.ensureAuth, postController.getPostsPerUser);
 api.get('/post/:id?', mdAuth.ensureAuth, postController.getPost);
 api.delete('/deletePost/:id', mdAuth.ensureAuth, postController.deletePost);
 api.put('/uploadPostImage/:id', [mdAuth.ensureAuth, mdUpload], postController.uploadImage);

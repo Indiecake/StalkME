@@ -6,6 +6,7 @@ const pagination = require('mongoose-pagination');
 const Publication = require('../models/post');
 const User = require('../models/user');
 const Follows = require('../models/follower');
+const user = require('../models/user');
 
 function test(req, res) {
     return res.status(200).send({ message: 'post Controllers' });
@@ -107,14 +108,14 @@ function uploadImage(req, res) {
 
         if (fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg' || fileExt == 'gif') {
 
-            Publication.findOne({ "user":req.user.sub, '_id': postId}).exec((err, post) => { 
-                
+            Publication.findOne({ "user": req.user.sub, '_id': postId }).exec((err, post) => {
+
                 if (post) {
                     Publication.findByIdAndUpdate(postId, { file: fileName }, { new: true }, (err, postUpdated) => {
                         if (err) return res.status(500).send({ message: 'Error en la peticion' });
-        
+
                         if (!postUpdated) return res.status(404).send({ message: 'No se ha podido actualizar el usuario' });
-        
+
                         return res.status(200).send({ post: postUpdated });
                     });
                 } else {
@@ -148,6 +149,34 @@ function getImageFile(req, res) {
     });
 }
 
+
+function getPostsPerUser(req, res) {
+    let page = 1;
+    const itemsPerPage = 4;
+    let userId = req.user.sub;
+    if (req.params.user) userId = req.params.user;
+        
+    if (req.params.page) page = req.params.page;
+
+
+    Publication.find({ "user": userId }).sort('-createdAt').populate('user')
+        .paginate(page, itemsPerPage, (err, posts, total) => {
+
+            if (err) return res.status(500).send({ message: 'Error al devolver publicacion' });
+
+            if (posts.length < 1) res.status(404).send({ message: 'No hay niguna publicacion' });
+
+            return res.status(200).send({
+                totalItems: total,
+                posts,
+                page: page,
+                pages: Math.ceil(total / itemsPerPage),
+                itemsPerPage
+            });
+
+        });
+}
+
 module.exports = {
     test,
     savePost,
@@ -155,5 +184,6 @@ module.exports = {
     getPost,
     deletePost,
     uploadImage,
-    getImageFile
+    getImageFile,
+    getPostsPerUser
 }
