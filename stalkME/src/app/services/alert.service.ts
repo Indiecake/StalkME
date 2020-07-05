@@ -19,6 +19,15 @@ export class AlertService {
     });
   }
 
+  static info(title: string, text): Promise<SweetAlertResult> {
+    return Swal.fire({
+      title,
+      text,
+      icon: 'question',
+      confirmButtonText: 'Ok'
+    });
+  }
+
   static async confirm(title: string,
     text: string,
     confirmButtonText: string = 'Aceptar',
@@ -44,7 +53,7 @@ export class AlertService {
       text,
       html,
       toast: true,
-      type: 'error',
+      //type: 'error',
       position: 'bottom',
       showConfirmButton: false,
       timer: 10000
@@ -58,7 +67,7 @@ export class AlertService {
       text,
       html,
       toast: true,
-      type: 'success',
+      //type: 'success',
       position: 'bottom',
       showConfirmButton: false,
       timer: 10000

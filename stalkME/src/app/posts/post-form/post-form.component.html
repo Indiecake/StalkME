@@ -9,7 +9,7 @@
         <div class="alert alert-danger" *ngIf="status == 'error'">
             La publicacion ha fallado! :'c 
         </div>
-        <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm); sendPost($event)" class="col-lg-12">
+        <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm, $event)" class="col-lg-12">
 
             <div class="form-group">
                 <label for="post">Que estas pensando?</label>
@@ -23,8 +23,8 @@
             </div>
 
             <label for="image">Agregar archivo ?</label>
-            <div class="form-group">
-                <input type="file" name="image" placeholder="Subir imagen" (change)="fileChangeEvent($event)">
+            <div class="form-group overflow-hidden">
+                <input #fileInput type="file" name="image"  placeholder="Subir imagen" (change)="fileChangeEvent($event)">
 
             </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { Post } from "../../models/post";
 import { UserService } from "../../services/user.service";
 import { FormGroup, FormControl } from '@angular/forms';
@@ -36,25 +36,32 @@ export class PostFormComponent implements OnInit {
 
   }
 
-  onSubmit(form) {
+  @ViewChild('fileInput')
+  inptFile: ElementRef;
+
+  onSubmit(form, $event) {
     this._postService.addPost(this.token, this.post).subscribe(
       Response => {
         if (Response.postStored) {
           if (this.filesToUpload && this.filesToUpload.length) {
-            
+
             this._uploadService.makeFileRequest(`${this.url}uploadPostImage/${Response.postStored._id}`, [], this.filesToUpload, this.token, 'image')
               .then((result: any) => {
-                
+
                 this.post.file = result.image;
                 form.reset();
+                this.inptFile.nativeElement.value = "";
                 this.router.navigate(['/timeline']);
                 this.status = 'success';
+                this.sended.emit({ send: true });
               });
-            
+
           } else {
             form.reset();
-                this.router.navigate(['/timeline']);
-                this.status = 'success';
+            this.inptFile.nativeElement.value = "";
+            this.router.navigate(['/timeline']);
+            this.status = 'success';
+            this.sended.emit({ send: true });
           }
 
         } else {

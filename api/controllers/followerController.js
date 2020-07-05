@@ -49,17 +49,24 @@ function getFollowingUsers(req, res) {
 
     let itemsPerPage = 4;
     Follower.find({ user: loggedUser }).populate({
-        path: 'followed'
+        path: 'followed', select: '_id name surname nick'
     }).paginate(page, itemsPerPage, (err, follows, total) => {
         if (err) return res.status(500).send({ message: 'Error en el servidor' });
 
         if (follows.length < 1) return res.status(404).send({ message: 'No estas siguiendo a ningun usuario' });
 
-        return res.status(200).send({
-            total: total,
-            page: Math.ceil(total / itemsPerPage),
-            follows
+         followsUsersId(loggedUser).then((value) => {
+            
+            return res.status(200).send({
+                total: total,
+                pages: Math.ceil(total / itemsPerPage),
+                follows,
+                usersFollowing: value.following,
+                usersFollowMe: value.followers
+            });
+
         });
+
     });
 }
 
@@ -77,15 +84,22 @@ function getFollowers(req, res) {
     }
 
     let itemsPerPage = 4;
-    Follower.find({ followed: loggedUser }).populate('user').paginate(page, itemsPerPage, (err, follows, total) => {
+    Follower.find({ followed: loggedUser }).populate('user', '_id name surname nick').paginate(page, itemsPerPage, (err, follows, total) => {
         if (err) return res.status(500).send({ message: 'Error en el servidor' });
 
         if (follows.length < 1) return res.status(404).send({ message: 'No te sigue ningun usuario' });
+        
 
-        return res.status(200).send({
-            total: total,
-            page: Math.ceil(total / itemsPerPage),
-            follows
+        followsUsersId(loggedUser).then((value) => {
+            
+            return res.status(200).send({
+                total: total,
+                pages: Math.ceil(total / itemsPerPage),
+                follows,
+                usersFollowing: value.following,
+                usersFollowMe: value.followers
+            });
+
         });
     });
 }
@@ -108,6 +122,34 @@ function getMyFollows(req, res) {
 
         return res.status(200).send({ follows });
     });
+}
+
+
+async function followsUsersId(userId) {
+    let following = await Follower.find({ "user": userId }).select({ '_id': 0, '__v': 0, 'user': 0 }).exec().then((following) => {
+        let followsArray = [];
+        for (const follower of following) {
+            followsArray.push(follower.followed);
+        }
+        return followsArray;
+    }).catch((err) => {
+        return handleError(err);
+    });
+
+    let followers = await Follower.find({ "followed": userId }).select({ '_id': 0, '__v': 0, 'followed': 0 }).exec().then((followers) => {
+        let followsArray = [];
+        for (const follower of followers) {
+            followsArray.push(follower.user);
+        }
+        return followsArray;
+    }).catch((err) => {
+        return handleError(err);
+    });
+
+    return {
+        following: following,
+        followers: followers
+    }
 }
 
 

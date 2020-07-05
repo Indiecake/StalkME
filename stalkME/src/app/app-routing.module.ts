@@ -8,6 +8,8 @@ import { UserComponent } from './user/user.component';
 //import { TimelineComponent } from "./timeline/timeline.component";
 import { PostsComponent } from "./posts/posts.component";
 import { ProfileComponent } from './user/profile/profile.component';
+import { FollowingComponent } from './following/following.component';
+import { FollowersComponent } from './followers/followers.component';
 
 
 const routes: Routes = [
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'users/:page', component: UserComponent },
   { path: 'timeline', component: PostsComponent},
   { path: 'profile/:id', component: ProfileComponent},
+  { path: 'following/:id/:page', component: FollowingComponent},
+  { path: 'followers/:id/:page', component: FollowersComponent},
   { path: '**', component: HomeComponent }
 ];
 

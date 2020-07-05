@@ -18,6 +18,8 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 import { ProfileComponent } from './user/profile/profile.component';
 import { PersonalPostComponent } from './user/personal-post/personal-post.component';
+import { FollowingComponent } from './following/following.component';
+import { FollowersComponent } from './followers/followers.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { PersonalPostComponent } from './user/personal-post/personal-post.compon
     PostFormComponent,
     DateAgoPipe,
     ProfileComponent,
-    PersonalPostComponent
+    PersonalPostComponent,
+    FollowingComponent,
+    FollowersComponent
   ],
   imports: [
     BrowserModule,

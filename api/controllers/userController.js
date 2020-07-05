@@ -160,7 +160,7 @@ function getUsers(req, res) {
                 total,
                 pages: Math.ceil(total / itemsPerPage)
             });
-        })
+        });
     });
 }
 

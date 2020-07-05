@@ -4,6 +4,7 @@ import { UserService } from "../../services/user.service";
 import { global } from "../../services/global";
 import { ActivatedRoute, Router, Params } from "@angular/router";
 import { PostService } from "../../services/post.service";
+import { AlertService } from "../../services/alert.service";
 import * as $ from 'jquery';
 
 @Component({
@@ -23,19 +24,20 @@ export class PersonalPostComponent implements OnInit {
   pages: number;
   total: number;
   noPagesLeft: boolean;
-  itemsPerPage: number;
+  itemsPerPage: string;
+  showImage: number;
 
   constructor(private _userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private _postService: PostService) { 
-      this.title = 'Linea del tiempo';
-      this.url = global.url;
-      this.identity = this._userService.getIdentity();
-      this.token = this._userService.getToken();
-      this.page = 1;
-      this.noPagesLeft = false;
-    }
+    private _postService: PostService) {
+    this.title = 'Linea del tiempo';
+    this.url = global.url;
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+    this.page = 1;
+    this.noPagesLeft = false;
+  }
 
   ngOnInit(): void {
     this.getPosts(this.userId, this.page);
@@ -44,7 +46,7 @@ export class PersonalPostComponent implements OnInit {
   @Input() userId: string;
 
   getPosts(user: string, page: number, adding: boolean = false) {
-    this._postService.getPostPerUser(this.token, user,  page).subscribe(
+    this._postService.getPostPerUser(this.token, user, page).subscribe(
       Response => {
         if (Response.posts) {
           this.total = Response.totalItems;
@@ -57,7 +59,7 @@ export class PersonalPostComponent implements OnInit {
             let nextPage = Response.posts;
             this.posts = loadedRecords.concat(nextPage);
 
-            $("html, body").animate({scrollTop: $("body").prop("scrollHeight")}, 500);
+            $("html, body").animate({ scrollTop: $("body").prop("scrollHeight") }, 500);
           }
 
 
@@ -81,7 +83,7 @@ export class PersonalPostComponent implements OnInit {
   }
 
   viewMorePosts() {
-    if ( this.page == this.pages ) {
+    if (this.page == this.pages) {
       this.noPagesLeft = true;
       //alertSevice
     } else {
@@ -91,13 +93,48 @@ export class PersonalPostComponent implements OnInit {
 
   }
 
-  refresh(event){    
+  refresh(event) {
     if (event.send) {
       this.getPosts(this.userId, 1);
       //this.posts.unshift(event.post);
     }
-    
+
   }
 
+  showPostImage(postId) {
+    if (this.showImage == postId) {
+      this.showImage = 0;
+    } else {
+      this.showImage = postId;
+    }
+  }
 
+  async deletePost(id) {
+    if (await AlertService.confirm('Eliminar', 'Estas seguro de que quieres eliminar esta publicacion')) {
+      this._postService.deletePost(this.token, id).subscribe(
+        Response => {
+          this.status = 'success';
+          this.updateMetrics();
+          this.getPosts(this.userId, 1);
+          AlertService.toastSuccess('Se eliminó correctamente', '');
+        },
+        error => {
+          let message = <any>error;
+          AlertService.toastError('No se pudo eliminar', '');
+          if (message != null) {
+            this.status = 'error';
+          }
+        }
+      );
+    }
+  }
+
+  updateMetrics() {
+    this._userService.getMetrics(this.identity._id).toPromise().then(response => {
+      localStorage.setItem('stats', JSON.stringify(response));
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+  
 }

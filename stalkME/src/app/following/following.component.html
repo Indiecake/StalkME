@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-lg-8">
+        <h1>{{ title }} {{user?.name}}</h1>
+
+        <div class="people" *ngIf="follows">
+            <div *ngFor="let follow of following" class="itemUser" >
+
+                <div class="card mb-3" style="max-width: 740px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <a [routerLink]="['/profile/', follow.followed._id]" >
+                                <img src="{{ url + 'getImageUser/' + follow.followed.image }}" class="card-img" *ngIf="follow.followed.image">
+                                <img src="assets/img/userPlaceHolder.jpeg" class="card-img" *ngIf="!follow.followed.image">
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <a [routerLink]="['/profile/', follow.followed._id]" class="card-title font-weight-bold text-dark text-decoration-none">
+                                    {{ follow.followed.name + ' ' + follow.followed.surname }}
+                                </a>
+                                <div class="card-title pull-right" *ngIf="follow.followed._id != identity._id">
+                                    <button class="btn btn-primary btn-sm" (click)="followUser(follow.followed._id)"
+                                        *ngIf="follows.indexOf(follow.followed._id) < 0"> <i class="fa fa-plus"
+                                            aria-hidden="true"></i> Seguir</button>
+                                    <button class="btn btn-secondary btn-sm"
+                                        [class.btn-danger]="follow.followed._id == followingUserOver"
+                                        *ngIf="follows.indexOf(follow.followed._id) >= 0" (mouseenter)="mouseEnter(follow.followed._id)"
+                                        (mouseleave)="mouseLeave()" (click)="unFollowUser(follow.followed._id)">
+                                        <span *ngIf="follow.followed._id == followingUserOver; else following">
+                                            <i class="fa fa-ban" aria-hidden="true"></i>
+                                            Dejar de seguir
+                                        </span>
+                                        <ng-template #following>
+                                            <i class="fa fa-check-circle-o" aria-hidden="true"></i> Siguiendo
+                                        </ng-template>
+
+                                    </button>
+                                </div>
+                                <p class="card-text text-muted">
+                                    {{ follow.followed.nick }}
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item" *ngIf="page > 1">
+                        <a class="page-link" [routerLink]="['/following/', userPageId, prevPage]">Anterior</a>
+                    </li>
+
+                    <li class="page-item" *ngIf="pages != page">
+                        <a class="page-link" [routerLink]="['/following/', userPageId, nextPage]">Siguiente.</a>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+        <app-sidebar></app-sidebar>
+        <app-post-form></app-post-form>
+    </div>
+
+
+</div>
+
+
+<div class="clearfix"></div>
