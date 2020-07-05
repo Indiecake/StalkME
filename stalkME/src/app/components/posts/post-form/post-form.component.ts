@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { Post } from "../../models/post";
-import { UserService } from "../../services/user.service";
+import { UserService } from "../../../services/user.service";
 import { FormGroup, FormControl } from '@angular/forms';
-import { PostService } from "../../services/post.service";
+import { PostService } from "../../../services/post.service";
 import { Router, Params, ActivatedRoute } from "@angular/router";
-import { UploadService } from "../../services/upload.service";
-import { global } from "../../services/global";
+import { UploadService } from "../../../services/upload.service";
+import { global } from "../../../services/global";
 
 @Component({
   selector: 'app-post-form',

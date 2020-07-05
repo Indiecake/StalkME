@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Params, ActivatedRoute } from "@angular/router";
 import { User } from "../../models/user";
-import { UserService } from "../../services/user.service";
-import { UploadService } from "../../services/upload.service";
-import { global } from "../../services/global";
+import { UserService } from "../../../services/user.service";
+import { UploadService } from "../../../services/upload.service";
+import { global } from "../../../services/global";
 
 @Component({
   selector: 'app-edit-user',

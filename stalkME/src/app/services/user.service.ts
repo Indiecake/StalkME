@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
-import { User } from "../models/user";
+import { User } from "../components/models/user";
 import { global } from "./global";
 import { Observable } from 'rxjs';
 

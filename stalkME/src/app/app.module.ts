@@ -6,20 +6,20 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignUpComponent } from './auth/sign-up/sign-up.component';
-import { SignInComponent } from './auth/sign-in/sign-in.component';
-import { HomeComponent } from './home/home.component';
-import { EditUserComponent } from './user/edit-user/edit-user.component';
-import { UserComponent } from './user/user.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { PostsComponent } from './posts/posts.component';
-import { PostFormComponent } from './posts/post-form/post-form.component';
+import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
+import { SignInComponent } from './components/auth/sign-in/sign-in.component';
+import { HomeComponent } from './components/home/home.component';
+import { EditUserComponent } from './components/user/edit-user/edit-user.component';
+import { UserComponent } from './components/user/user.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { PostsComponent } from './components/posts/posts.component';
+import { PostFormComponent } from './components/posts/post-form/post-form.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 
-import { ProfileComponent } from './user/profile/profile.component';
-import { PersonalPostComponent } from './user/personal-post/personal-post.component';
-import { FollowingComponent } from './following/following.component';
-import { FollowersComponent } from './followers/followers.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { PersonalPostComponent } from './components/user/personal-post/personal-post.component';
+import { FollowingComponent } from './components/following/following.component';
+import { FollowersComponent } from './components/followers/followers.component';
 
 @NgModule({
   declarations: [

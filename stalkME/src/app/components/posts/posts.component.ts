@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Post } from "../../models/post";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Post } from "../models/post";
 import { UserService } from "../../services/user.service";
 import { global } from "../../services/global";
 import { ActivatedRoute, Router, Params } from "@angular/router";
@@ -7,13 +7,14 @@ import { PostService } from "../../services/post.service";
 import { AlertService } from "../../services/alert.service";
 import * as $ from 'jquery';
 
+
 @Component({
-  selector: 'app-personal-post',
-  templateUrl: './personal-post.component.html',
-  styleUrls: ['./personal-post.component.css'],
+  selector: 'app-posts',
+  templateUrl: './posts.component.html',
+  styleUrls: ['./posts.component.css'],
   providers: [UserService, PostService]
 })
-export class PersonalPostComponent implements OnInit {
+export class PostsComponent implements OnInit {
   posts: Post[];
   identity;
   token: string;
@@ -24,8 +25,8 @@ export class PersonalPostComponent implements OnInit {
   pages: number;
   total: number;
   noPagesLeft: boolean;
-  itemsPerPage: string;
-  showImage: number;
+  itemsPerPage: number;
+  showImage;
 
   constructor(private _userService: UserService,
     private route: ActivatedRoute,
@@ -40,13 +41,12 @@ export class PersonalPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPosts(this.userId, this.page);
+    this.getPosts(this.page);
   }
 
-  @Input() userId: string;
 
-  getPosts(user: string, page: number, adding: boolean = false) {
-    this._postService.getPostPerUser(this.token, user, page).subscribe(
+  getPosts(page: number, adding: boolean = false) {
+    this._postService.getPosts(this.token, page).subscribe(
       Response => {
         if (Response.posts) {
           this.total = Response.totalItems;
@@ -88,15 +88,14 @@ export class PersonalPostComponent implements OnInit {
       //alertSevice
     } else {
       this.page += 1;
-      this.getPosts(this.userId, this.page, true);
+      this.getPosts(this.page, true);
     }
 
   }
 
   refresh(event) {
     if (event.send) {
-      this.getPosts(this.userId, 1);
-      //this.posts.unshift(event.post);
+      this.getPosts(1);
     }
 
   }
@@ -115,7 +114,7 @@ export class PersonalPostComponent implements OnInit {
         Response => {
           this.status = 'success';
           this.updateMetrics();
-          this.getPosts(this.userId, 1);
+          this.getPosts(1);
           AlertService.toastSuccess('Se eliminó correctamente', '');
         },
         error => {
@@ -127,14 +126,16 @@ export class PersonalPostComponent implements OnInit {
         }
       );
     }
+
   }
 
-  updateMetrics() {
+  updateMetrics(){
     this._userService.getMetrics(this.identity._id).toPromise().then(response => {
       localStorage.setItem('stats', JSON.stringify(response));
     }).catch(err => {
       console.log(err);
     });
+
   }
-  
+
 }

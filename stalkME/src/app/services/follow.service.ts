@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { global } from "../services/global";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Follow } from "../models/follows";
+import { Follow } from "../components/models/follows";
 import { Observable } from 'rxjs';
 
 @Injectable({

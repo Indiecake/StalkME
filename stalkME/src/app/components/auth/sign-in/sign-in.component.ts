@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { User } from "../../models/user";
-import { UserService } from "../../services/user.service";
-import { error } from 'protractor';
+import { UserService } from "../../../services/user.service";
 
 @Component({
   selector: 'app-sign-in',
