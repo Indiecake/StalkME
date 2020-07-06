@@ -8,22 +8,30 @@
         <div class="card mb-3" style="max-width: 740px;">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <a [routerLink]="['/profile/', message.receiver._id]">
-                        <img src="{{ url + 'getImagemessage/' + message.receiver.image }}" class="card-img" *ngIf="message.receiver.image">
-                        <img src="assets/img/messagePlaceHolder.jpeg" class="card-img" *ngIf="!message.receiver.image">
+                    <a [routerLink]="['/profile/', message.emitter._id]">
+                        <img src="{{ url + 'getImageUser/' + message.emitter.image }}" class="card-img" *ngIf="message.emitter.image">
+                        <img src="assets/img/userPlaceHolder.jpeg" class="card-img" *ngIf="!message.emitter.image">
                     </a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <a [routerLink]="['/profile/', message.receiver._id]"
+                        <a [routerLink]="['/profile/', message.emitter._id]"
                             class="card-title font-weight-bold text-dark text-decoration-none">
-                            {{ message.receiver.name + ' ' + message.receiver.surname }}
+                           De: {{ message.emitter.name + ' ' + message.emitter.surname }} ({{ message.emitter.nick }})
                         </a>
-
-                        <p class="card-text text-muted">
-                            {{ message.receiver.nick }}
+                        <br>
+                        <a [routerLink]="['/profile/', message.receiver._id]" class="font-weight-bold text-dark text-decoration-none text-muted">
+                            <small>
+                                Para: {{ message.receiver.name + ' ' + message.receiver.name }} ({{ message.receiver.nick }})
+                            </small>
+                        </a>
+                        <hr>
+                        
+                        <p class="card-text">
+                            {{ message.text }}
                         </p>
-                        <p class="card-text"><small class="text-muted">{{ message.createdAt }}</small></p>
+                        
+                        <p class="card-text"><small class="text-muted">{{ message.createdAt | dateAgo }}</small></p>
                     </div>
                 </div>
             </div>
@@ -34,11 +42,11 @@
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li class="page-item" *ngIf="page > 1">
-                <a class="page-link" [routerLink]="['/sended', prevPage]">Anterior</a>
+                <a class="page-link" [routerLink]="['/messages/sended', prevPage]">Anterior</a>
             </li>
 
             <li class="page-item" *ngIf="pages != page">
-                <a class="page-link" [routerLink]="['/sended', nextPage]">Siguiente.</a>
+                <a class="page-link" [routerLink]="['/messages/sended', nextPage]">Siguiente.</a>
             </li>
         </ul>
     </nav>

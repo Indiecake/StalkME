@@ -16,12 +16,14 @@ import { UserComponent } from './components/user/user.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostFormComponent } from './components/posts/post-form/post-form.component';
-import { DateAgoPipe } from './pipes/date-ago.pipe';
+
+//import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { PersonalPostComponent } from './components/user/personal-post/personal-post.component';
 import { FollowingComponent } from './components/following/following.component';
 import { FollowersComponent } from './components/followers/followers.component';
+import { ApplicationPipeModule } from './application-pipe/application-pipe.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,7 @@ import { FollowersComponent } from './components/followers/followers.component';
     SidebarComponent,
     PostsComponent,
     PostFormComponent,
-    DateAgoPipe,
+    //DateAgoPipe,
     ProfileComponent,
     PersonalPostComponent,
     FollowingComponent,
@@ -45,7 +47,8 @@ import { FollowersComponent } from './components/followers/followers.component';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    MessagesModule
+    MessagesModule,
+    ApplicationPipeModule
   ],
   providers: [Title],
   bootstrap: [AppComponent]

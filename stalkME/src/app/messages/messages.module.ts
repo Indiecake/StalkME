@@ -8,6 +8,7 @@ import { AddComponent } from './components/add/add.component';
 import { ReceivedComponent } from './components/received/received.component';
 import { SendedComponent } from './components/sended/sended.component';
 import { FormsModule } from '@angular/forms';
+import { ApplicationPipeModule } from '../application-pipe/application-pipe.module';
 
 
 
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    MessagesRoutingModule
+    MessagesRoutingModule,
+    ApplicationPipeModule
   ],
   exports: [
     MainComponent,

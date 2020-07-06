@@ -30,7 +30,9 @@ export class SendedComponent implements OnInit {
 
   constructor(private titleService: Title, 
               private _messageService: MessageService,
-              private _userService: UserService) {
+              private _userService: UserService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.title = 'Mensajes enviados';
     this.titleService.setTitle(`${this.title} | StalkMe`);
     this.identity = this._userService.getIdentity();
@@ -40,11 +42,11 @@ export class SendedComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getMessages(1);   
+    this.actualPage(this.token); 
   }
 
-  getMessages(page: number){
-    this._messageService.sendedMessages(this.token, page).subscribe(
+  getMessages(token: string, page: number){
+    this._messageService.sendedMessages(token, page).subscribe(
       Response => {        
         if (Response.messages) {          
           this.messages = Response.messages;
@@ -55,6 +57,27 @@ export class SendedComponent implements OnInit {
         AlertService.error('Oh no!', 'Ha ocurrido un error');
       }
     )
+  }
+
+  actualPage(token: string) {
+    this.route.params.subscribe(params => {
+      let page =+ params['page'];
+      this.page = page;
+      if (!params['page']) {
+        page = 1;
+      }
+      if (!page) {
+        page = 1;
+      } else {
+        this.nextPage = page + 1;
+        this.prevPage = page - 1;
+        
+        if (this.prevPage <= 0) {
+          this.prevPage = 1;
+        }
+      }
+      this.getMessages(token, page);
+    });
   }
 
 }

@@ -15,6 +15,7 @@ export const routes: Routes = [
             { path: 'new', component: AddComponent },
             { path: 'received', component: ReceivedComponent },
             { path: 'sended', component: SendedComponent },
+            { path: 'sended/:page', component: SendedComponent },
             { path: '**', redirectTo: 'sended'}
         ]
     }
