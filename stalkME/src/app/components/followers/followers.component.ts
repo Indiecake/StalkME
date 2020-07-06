@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from "@angular/router";
-import { Follow } from "../models/follows";
-import { User } from "../models/user";
+import { Follow } from "../../models/follows";
+import { User } from "../../models/user";
 import { UserService } from "../../services/user.service";
 import { FollowService } from "../../services/follow.service";
 import { global } from "../../services/global";
 import { AlertService } from "../../services/alert.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-followers',
@@ -30,8 +31,13 @@ export class FollowersComponent implements OnInit {
   userPageId: string;
   user: User;
 
-  constructor(private route: ActivatedRoute, private router: Router, private _userService: UserService, private _followService: FollowService) {
+  constructor(private route: ActivatedRoute, 
+              private router: Router, 
+              private _userService: UserService, 
+              private _followService: FollowService,
+              private titleService: Title) {
     this.title = 'Seguidores de';
+    this.titleService.setTitle('Mis seguidores | StalkMe');
     this.identity = _userService.getIdentity();
     this.token = _userService.getToken();
     this.url = global.url;

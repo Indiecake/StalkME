@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { global } from "../services/global";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Follow } from "../components/models/follows";
+import { Follow } from "../models/follows";
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -48,6 +48,12 @@ export class FollowService {
     }
 
     return this.http.get(url, {headers: headers});
+  }
+
+  getMyFollows(token:string): Observable<any> {
+    let headers = global.headers.set('Authorization', token);
+
+    return this.http.get(`${this.url}getMyFollows/true`, {headers:headers});
   }
 
 }

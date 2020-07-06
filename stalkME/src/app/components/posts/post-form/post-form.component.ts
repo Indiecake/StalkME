@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
-import { Post } from "../../models/post";
+import { Post } from "../../../models/post";
 import { UserService } from "../../../services/user.service";
 import { FormGroup, FormControl } from '@angular/forms';
 import { PostService } from "../../../services/post.service";
@@ -26,10 +26,10 @@ export class PostFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _uploadService: UploadService) {
-    this.identity = this._userService.getIdentity();
-    this.token = this._userService.getToken();
-    this.post = new Post('', '', '', '', this.identity._id);
-    this.url = global.url;
+      this.identity = this._userService.getIdentity();
+      this.token = this._userService.getToken();
+      this.post = new Post('', '', '', '', this.identity._id);
+      this.url = global.url;
   }
 
   ngOnInit(): void {

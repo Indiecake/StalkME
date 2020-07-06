@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from "@angular/router";
-import { User } from "../models/user";
+import { User } from "../../models/user";
 import { UserService } from "../../services/user.service";
 import { FollowService } from "../../services/follow.service";
 import { global } from "../../services/global";
-import { Follow } from '../models/follows';
-import { error } from 'protractor';
+import { Follow } from '../../models/follows';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user',
@@ -31,8 +31,10 @@ export class UserComponent implements OnInit {
   constructor(private route: ActivatedRoute, 
               private router: Router, 
               private _userService: UserService, 
-              private _followService: FollowService) {
+              private _followService: FollowService,
+              private titleService: Title) {
     this.title = 'Gente';
+    this.titleService.setTitle(`${this.title} | StalkMe`);
     this.identity = _userService.getIdentity();
     this.token = _userService.getToken();
     this.url = global.url;

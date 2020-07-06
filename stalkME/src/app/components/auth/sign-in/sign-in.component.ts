@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
-import { User } from "../../models/user";
+import { User } from "../../../models/user";
 import { UserService } from "../../../services/user.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,8 +17,12 @@ export class SignInComponent implements OnInit {
   public identity;
   public token;
 
-  constructor(private route: ActivatedRoute, private router:Router, private _userServie:UserService ) {
+  constructor(private route: ActivatedRoute, 
+              private router:Router, 
+              private _userServie:UserService,
+              private titleService: Title ) {
     this.title = 'Bienvenido';
+    this.titleService.setTitle('Iniciar sesion | StalkMe');
     this.user = new User('', '', '', '', '', '', 'ROLE_USER', '');
    }
 

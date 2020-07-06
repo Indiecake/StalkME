@@ -1,11 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Post } from "../models/post";
+import { Post } from "../../models/post";
 import { UserService } from "../../services/user.service";
 import { global } from "../../services/global";
 import { ActivatedRoute, Router, Params } from "@angular/router";
 import { PostService } from "../../services/post.service";
 import { AlertService } from "../../services/alert.service";
 import * as $ from 'jquery';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -31,17 +32,19 @@ export class PostsComponent implements OnInit {
   constructor(private _userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private _postService: PostService) {
-    this.title = 'Linea del tiempo';
-    this.url = global.url;
-    this.identity = this._userService.getIdentity();
-    this.token = this._userService.getToken();
-    this.page = 1;
-    this.noPagesLeft = false;
+    private _postService: PostService,
+    private titleService: Title) {
+      this.title = 'Linea del tiempo';
+      this.url = global.url;
+      this.identity = this._userService.getIdentity();
+      this.token = this._userService.getToken();
+      this.page = 1;
+      this.noPagesLeft = false;
   }
 
   ngOnInit(): void {
     this.getPosts(this.page);
+    this.titleService.setTitle(`${this.title} | StalkMe`);
   }
 
 

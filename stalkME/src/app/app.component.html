@@ -21,6 +21,11 @@
         <a class="nav-link" [routerLink]="['/users']" [routerLinkActive]="['active']"><i class="fa fa-user"></i> Conectar</a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/messages/']" [routerLinkActive]="['active']"><i class="fa fa-commenting" aria-hidden="true"></i>
+          Mensajes</a>
+      </li>
+
     </ul>
 
     <ul class="navbar-nav mr-auto" *ngIf="!identity"></ul>

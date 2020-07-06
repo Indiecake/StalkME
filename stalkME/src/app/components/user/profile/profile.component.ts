@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { UserService } from "../../../services/user.service";
 import { FollowService } from "../../../services/follow.service";
-import { User } from "../../models/user";
-import { Follow } from "../../models/follows";
+import { User } from "../../../models/user";
+import { Follow } from "../../../models/follows";
 import { global } from "../../../services/global";
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -24,8 +25,13 @@ export class ProfileComponent implements OnInit {
   followed;
   following;
 
-  constructor(private route: ActivatedRoute, private router: Router, private _userService: UserService, private _followService: FollowService) {
+  constructor(private route: ActivatedRoute, 
+              private router: Router, 
+              private _userService: UserService, 
+              private _followService: FollowService, 
+              private titleService:Title) {
     this.title = 'Perfil';
+    this.titleService.setTitle(`${this.title} | StalkMe`);
     this.identity = _userService.getIdentity();
     this.token = _userService.getToken();
     this.url = global.url;  

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { SignInComponent } from './components/auth/sign-in/sign-in.component';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { HomeComponent } from './components/home/home.component';
@@ -10,6 +11,7 @@ import { PostsComponent } from "./components/posts/posts.component";
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { FollowingComponent } from './components/following/following.component';
 import { FollowersComponent } from './components/followers/followers.component';
+import { MessagesModule } from './messages/messages.module';
 
 
 const routes: Routes = [
@@ -24,7 +26,8 @@ const routes: Routes = [
   { path: 'profile/:id', component: ProfileComponent},
   { path: 'following/:id/:page', component: FollowingComponent},
   { path: 'followers/:id/:page', component: FollowersComponent},
-  { path: '**', component: HomeComponent }
+  { path: 'messages', loadChildren: () => MessagesModule},
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({

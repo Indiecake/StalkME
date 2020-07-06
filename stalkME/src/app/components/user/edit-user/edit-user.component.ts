@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Params, ActivatedRoute } from "@angular/router";
-import { User } from "../../models/user";
+import { User } from "../../../models/user";
 import { UserService } from "../../../services/user.service";
 import { UploadService } from "../../../services/upload.service";
 import { global } from "../../../services/global";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-user',
@@ -23,8 +24,10 @@ export class EditUserComponent implements OnInit {
   constructor(private route: ActivatedRoute, 
               private router: Router, 
               private _userService: UserService,
-              private _uploadService: UploadService) { 
+              private _uploadService: UploadService,
+              private titleService: Title) { 
     this.title = 'Actualizar mis datos';
+    this.titleService.setTitle(`${this.title} | StalkMe`);
     this.user = this._userService.getIdentity();
     this.identity = this.user;
     this.token = this._userService.getToken();

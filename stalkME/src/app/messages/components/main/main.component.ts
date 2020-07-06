@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-main',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  title: string;
 
-  constructor() { }
+  constructor(private titleService: Title) {
+    this.title = 'Mensajes privados';
+    this.titleService.setTitle(`${this.title} | StalkMe`);
+   }
 
   ngOnInit(): void {
+    
   }
+
 
 }

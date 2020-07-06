@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
-import { User } from "../../models/user";
+import { User } from "../../../models/user";
 import { FormGroup } from '@angular/forms';
 import { UserService } from "../../../services/user.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,10 +19,12 @@ export class SignUpComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private _userService:UserService) {
+    private _userService: UserService,
+    private titleService: Title) {
 
     //this.createRegisterForm();
     this.title = "Registro";
+    this.titleService.setTitle(`${this.title} | StalkMe`);
     this.user = new User('',
       '',
       '',
@@ -48,17 +51,17 @@ export class SignUpComponent implements OnInit {
 
   onSubmit(form) {
     this._userService.register(this.user).subscribe(
-      Response =>{
-        if(Response.user && Response.user._id){
+      Response => {
+        if (Response.user && Response.user._id) {
           this.status = 'success';
           form.reset();
         } else {
           this.status = 'error';
         }
       },
-      error =>{
+      error => {
         console.log(<any>error);
-        
+
       }
     );
   }

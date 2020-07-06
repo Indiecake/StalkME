@@ -1,1 +1,26 @@
-<p>main works!</p>
+<div class="row">
+    <div class="col-lg-4">
+        <h3>{{ title }}</h3>
+        <div class="sidebar-admin">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['new']" [routerLinkActive]="['active']">Enviar mensajes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['received']" [routerLinkActive]="['active']">Mensajes recibidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['sended']" [routerLinkActive]="['active']">Enviados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/home']" [routerLinkActive]="['active']">Informacion</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>

@@ -1,0 +1,47 @@
+<div class="col-lg-10">
+    <h3>
+        {{title}}
+    </h3>
+
+    <div *ngFor="let message of messages" class="itemmessage">
+
+        <div class="card mb-3" style="max-width: 740px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <a [routerLink]="['/profile/', message.receiver._id]">
+                        <img src="{{ url + 'getImagemessage/' + message.receiver.image }}" class="card-img" *ngIf="message.receiver.image">
+                        <img src="assets/img/messagePlaceHolder.jpeg" class="card-img" *ngIf="!message.receiver.image">
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <a [routerLink]="['/profile/', message.receiver._id]"
+                            class="card-title font-weight-bold text-dark text-decoration-none">
+                            {{ message.receiver.name + ' ' + message.receiver.surname }}
+                        </a>
+
+                        <p class="card-text text-muted">
+                            {{ message.receiver.nick }}
+                        </p>
+                        <p class="card-text"><small class="text-muted">{{ message.createdAt }}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" *ngIf="page > 1">
+                <a class="page-link" [routerLink]="['/sended', prevPage]">Anterior</a>
+            </li>
+
+            <li class="page-item" *ngIf="pages != page">
+                <a class="page-link" [routerLink]="['/sended', nextPage]">Siguiente.</a>
+            </li>
+        </ul>
+    </nav>
+
+
+</div>

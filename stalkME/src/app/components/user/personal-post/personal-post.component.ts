@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Post } from "../../models/post";
+import { Post } from "../../../models/post";
 import { UserService } from "../../../services/user.service";
 import { global } from "../../../services/global";
 import { ActivatedRoute, Router, Params } from "@angular/router";
@@ -31,7 +31,7 @@ export class PersonalPostComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private _postService: PostService) {
-    this.title = 'Linea del tiempo';
+    this.title = 'Mis publicaciones';
     this.url = global.url;
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
