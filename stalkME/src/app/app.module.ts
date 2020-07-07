@@ -17,13 +17,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostFormComponent } from './components/posts/post-form/post-form.component';
 
-//import { DateAgoPipe } from './pipes/date-ago.pipe';
-
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { PersonalPostComponent } from './components/user/personal-post/personal-post.component';
 import { FollowingComponent } from './components/following/following.component';
 import { FollowersComponent } from './components/followers/followers.component';
 import { ApplicationPipeModule } from './application-pipe/application-pipe.module';
+
+import { UserService } from "./services/user.service";
+import { AuthGuard } from "./guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,11 @@ import { ApplicationPipeModule } from './application-pipe/application-pipe.modul
     MessagesModule,
     ApplicationPipeModule
   ],
-  providers: [Title],
+  providers: [
+    Title,
+    UserService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
