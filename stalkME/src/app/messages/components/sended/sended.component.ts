@@ -50,6 +50,7 @@ export class SendedComponent implements OnInit {
       Response => {        
         if (Response.messages) {          
           this.messages = Response.messages;
+          this.pages = Response.pages;
         }
       }, error => {
         console.log(<any>error);

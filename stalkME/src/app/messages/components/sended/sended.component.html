@@ -45,7 +45,7 @@
                 <a class="page-link" [routerLink]="['/messages/sended', prevPage]">Anterior</a>
             </li>
 
-            <li class="page-item" *ngIf="pages != page">
+            <li class="page-item" *ngIf="pages != page && pages > 1">
                 <a class="page-link" [routerLink]="['/messages/sended', nextPage]">Siguiente.</a>
             </li>
         </ul>

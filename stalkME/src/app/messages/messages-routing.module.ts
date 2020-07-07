@@ -14,6 +14,7 @@ export const routes: Routes = [
             { path: '', redirectTo: 'received', pathMatch: 'full' },
             { path: 'new', component: AddComponent },
             { path: 'received', component: ReceivedComponent },
+            { path: 'received/:page', component: ReceivedComponent },
             { path: 'sended', component: SendedComponent },
             { path: 'sended/:page', component: SendedComponent },
             { path: '**', redirectTo: 'sended'}

@@ -10,25 +10,25 @@ import { Observable } from 'rxjs';
 export class MessageService {
   url: string;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.url = global.url;
   }
 
-  newMessage(token:string, message:Message): Observable<any>{
+  newMessage(token: string, message: Message): Observable<any> {
     let params = JSON.stringify(message);
     let headers = global.headers.set('Authorization', token);
 
-    return this.http.post(`${this.url}message`, params, {headers: headers});
+    return this.http.post(`${this.url}message`, params, { headers: headers });
   }
 
-  receivedMessages(token:string, page: number = 1): Observable<any> {
+  receivedMessages(token: string, page: number = 1): Observable<any> {
     let headers = global.headers.set('Authorization', token);
-    return this.http.get(`${this.url}messages/received/${page}`, {headers: headers});
+    return this.http.get(`${this.url}messages/received/${page}`, { headers: headers });
   }
 
-  sendedMessages(token:string, page: number = 1): Observable<any> {
+  sendedMessages(token: string, page: number = 1): Observable<any> {
     let headers = global.headers.set('Authorization', token);
-    return this.http.get(`${this.url}messages/sended/${page}`, {headers: headers});
+    return this.http.get(`${this.url}messages/sended/${page}`, { headers: headers });
   }
 
 
