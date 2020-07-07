@@ -22,7 +22,7 @@
                         <br>
                         <a [routerLink]="['/profile/', message.receiver._id]" class="font-weight-bold text-dark text-decoration-none text-muted">
                             <small>
-                                Para: {{ message.receiver.name + ' ' + message.receiver.name }} ({{ message.receiver.nick }})
+                                Para: {{ identity.name + ' ' + identity.surname }} ({{ identity.nick }})
                             </small>
                         </a>
                         <hr>

@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { MessageService } from 'src/app/services/message.service';
-import { AlertService } from 'src/app/services/alert.service';
+import { MessageService } from '../../../services/message.service';
+import { AlertService } from '../../../services/alert.service';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from '../../../services/user.service';
+import { global } from "../../../services/global";
+
 
 @Component({
   selector: 'app-received',
   templateUrl: './received.component.html',
-  styleUrls: ['./received.component.css']
+  styleUrls: ['./received.component.css'],
+  providers: [UserService, MessageService]
 })
 export class ReceivedComponent implements OnInit {
   title: string;
@@ -20,6 +23,7 @@ export class ReceivedComponent implements OnInit {
   pages: number;
   prevPage: number;
   nextPage: number;
+  url:string;
 
   constructor(private titleService: Title,
               private _messageService: MessageService,
@@ -27,7 +31,8 @@ export class ReceivedComponent implements OnInit {
               private _userService: UserService) {
     this.title = 'Mensajes recibidos ';
     titleService.setTitle(`${this.title} | StalkMe`);
-    this.token = _userService.getToken()
+    this.token = _userService.getToken();
+    this.url = global.url;
     this.identity = _userService.getIdentity();
    }
 
