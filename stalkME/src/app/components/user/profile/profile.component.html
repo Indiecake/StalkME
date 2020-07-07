@@ -49,13 +49,13 @@
                         </h4>
 
                         <div class="following-data">
-                            <a class="font-weight-bold text-dark text-decoration-none" [routerLink]="['/following/', identity._id, 1]">
+                            <a class="font-weight-bold text-dark text-decoration-none" [routerLink]="['/following/', user._id, 1]">
                                 <span class="label-stats"> Siguiendo</span>
                                 <span class="number-stats"> {{ stats?.following }}</span>
                             </a>
                         </div>
                         <div class="following-data mx-4">
-                            <a class="font-weight-bold text-dark text-decoration-none" [routerLink]="['/followers/', identity._id, 1]">
+                            <a class="font-weight-bold text-dark text-decoration-none" [routerLink]="['/followers/', user._id, 1]">
                                 <span class="label-stats"> Seguidores</span>
                                 <span class="number-stats"> {{ stats?.followers }}</span>
                             </a>

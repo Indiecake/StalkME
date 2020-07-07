@@ -49,7 +49,7 @@ function getFollowingUsers(req, res) {
 
     let itemsPerPage = 4;
     Follower.find({ user: loggedUser }).populate({
-        path: 'followed', select: '_id name surname nick'
+        path: 'followed', select: '_id name surname nick image'
     }).paginate(page, itemsPerPage, (err, follows, total) => {
         if (err) return res.status(500).send({ message: 'Error en el servidor' });
 
@@ -84,7 +84,7 @@ function getFollowers(req, res) {
     }
 
     let itemsPerPage = 4;
-    Follower.find({ followed: loggedUser }).populate('user', '_id name surname nick').paginate(page, itemsPerPage, (err, follows, total) => {
+    Follower.find({ followed: loggedUser }).populate('user', '_id name surname nick image').paginate(page, itemsPerPage, (err, follows, total) => {
         if (err) return res.status(500).send({ message: 'Error en el servidor' });
 
         if (follows.length < 1) return res.status(404).send({ message: 'No te sigue ningun usuario' });
