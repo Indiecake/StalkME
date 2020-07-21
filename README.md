@@ -1,6 +1,6 @@
 # StalkME
 
-The project is a social network where you can posts your ideas, follow users and send messages.
+The project is a social network (Twitter knockoff) where you can posts your ideas, follow users and send messages.
 
 This is a project intended to make a small demonstration of an application developed with the MEAN stack (MongoDB, Express, Angular, NodeJs)
 
